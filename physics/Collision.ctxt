@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Collision
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Collision\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=p\ b
+comment1.target=boolean\ playerBlock(java.awt.Point,\ objects.Block)
+comment2.params=x\ y\ width\ height\ b
+comment2.target=boolean\ playerBlock(int,\ int,\ int,\ int,\ objects.Block)
+comment3.params=r\ b
+comment3.target=boolean\ playerBlock(java.awt.Rectangle,\ objects.Block)
+numComments=4

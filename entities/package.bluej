@@ -1,0 +1,27 @@
+#BlueJ package file
+objectbench.height=66
+objectbench.width=444
+package.divider.horizontal=0.6
+package.divider.vertical=0.6798245614035088
+package.editor.height=148
+package.editor.width=356
+package.editor.x=0
+package.editor.y=687
+package.frame.height=217
+package.frame.width=483
+package.numDependencies=0
+package.numTargets=1
+package.showExtends=true
+package.showUses=true
+readme.height=58
+readme.name=@README
+readme.width=47
+readme.x=10
+readme.y=10
+target1.height=50
+target1.name=Player
+target1.showInterface=false
+target1.type=ClassTarget
+target1.width=80
+target1.x=170
+target1.y=20

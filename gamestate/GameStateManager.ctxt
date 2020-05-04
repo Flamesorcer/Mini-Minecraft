@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=GameStateManager
+comment1.params=
+comment1.target=GameStateManager()
+comment2.params=
+comment2.target=void\ tick()
+comment3.params=g
+comment3.target=void\ draw(java.awt.Graphics)
+comment4.params=k
+comment4.target=void\ keyPressed(int)
+comment5.params=k
+comment5.target=void\ keyReleased(int)
+numComments=6
