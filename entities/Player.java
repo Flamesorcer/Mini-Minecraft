@@ -21,8 +21,7 @@ public class Player
     public int width;
     public int height;
     
-    private ArrayList<Block> water;
-    private int count = 0;
+    
     //Animation
     private boolean right = false, left = false;
     private boolean isAttacking;
@@ -34,7 +33,7 @@ public class Player
     //MoveSpeed
     private double moveSpeed;
     private double maxMoveSpeed = 2.5;
-    private double waterSpeed = maxMoveSpeed * .5;
+    
     //Falling or Jumping
     private boolean jumping;
     private boolean falling;
@@ -42,10 +41,12 @@ public class Player
     private boolean onGround;
     private boolean running;
     //Jump Speed
-    private double jumpSpeed = 6;
+    private double maxJumpSpeed = 6;
+    private double jumpSpeed = maxJumpSpeed;
     private double currentJumpSpeed = jumpSpeed;
     //Fall Speed
-    private double maxFallSpeed = 10;
+    private double maxMaxFallSpeed = 10;
+    private double maxFallSpeed = maxMaxFallSpeed;
     private double currentFallSpeed = 0.12;
 
     private double fallAccelleration;
@@ -54,6 +55,12 @@ public class Player
     private double attackTime;
     //Health
     private double health;
+    //Water
+    private boolean inWater;
+    private double waterJump = jumpSpeed * .7;
+    private double waterSpeed = maxMoveSpeed * .5;
+    private double waterFall = maxMaxFallSpeed * .25;
+    
     public Player(int w, int h){
         hx = GamePanel.WIDTH/2;
         hy = GamePanel.HEIGHT/2;
@@ -76,13 +83,14 @@ public class Player
         rightCollision = true;
         fallAccelleration = .2;
         running = false;
+        inWater = false;
     }
 
     public void tick(Block[][] b){
         onGround = false;
         x = (int)hx;
         y = (int)hy;
-        moveSpeed = maxMoveSpeed;
+        inWater = false;
         //Collisions
         for(int i = 0; i < b.length; i++){
             for(int j = 0; j < b[0].length; j++){
@@ -127,10 +135,23 @@ public class Player
                 else if (b[i][j].getID() >= 4 && b[i][j].getID() <= 6){
                         if (new Rectangle2D.Float(x -2 + (int)GameState.xOffset, y + 2+ (int)GameState.yOffset,
                         width, height).intersects(b[i][j])){
-                            moveSpeed = waterSpeed;
+                            inWater = true;
                         }
                     }
             }
+        }
+        if(inWater){
+            moveSpeed = waterSpeed;
+            jumpSpeed = waterJump;
+            maxFallSpeed = waterFall;
+            if(currentFallSpeed > maxFallSpeed){
+                currentFallSpeed = maxFallSpeed;
+            }
+        }
+        else{
+            moveSpeed = maxMoveSpeed;
+            jumpSpeed = maxJumpSpeed;
+            maxFallSpeed = maxMaxFallSpeed;
         }
         x = (int)hx;
         y = (int)hy;
@@ -346,7 +367,12 @@ public class Player
     public void keyPressed(int k){
         if (k == KeyEvent.VK_D) right = true;
         if (k == KeyEvent.VK_A) left = true;
-        if (k == KeyEvent.VK_SPACE && !jumping && !falling) jumping = true;
+        if ((k == KeyEvent.VK_SPACE && !jumping && !falling)) jumping = true;
+        else if( k == KeyEvent.VK_SPACE && inWater) {
+            currentJumpSpeed = jumpSpeed;
+            jumping = true;
+            falling = false;
+        }
         if (k == KeyEvent.VK_SHIFT) running = true;
         if (k == KeyEvent.VK_S) isAttacking = true;
     }
