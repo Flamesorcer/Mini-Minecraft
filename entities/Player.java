@@ -20,6 +20,9 @@ public class Player
     public int y;
     public int width;
     public int height;
+    
+    private ArrayList<Block> water;
+    private int count = 0;
     //Animation
     private boolean right = false, left = false;
     private boolean isAttacking;
@@ -121,13 +124,12 @@ public class Player
                     }
                     
                 }
-                // else if (b[i][j].getID() >= 4 && b[i][j].getID() <= 6){
-                        // if (new Rectangle2D.Float(x -2 + (int)GameState.xOffset, y + 2+ (int)GameState.yOffset,
-                        // x + 2 + width + (int)GameState.xOffset, y -1 +  height + (int)GameState.yOffset).intersects(b[i][j])){
-                            // moveSpeed = waterSpeed;
-                        // }
-                        
-                    // }
+                else if (b[i][j].getID() >= 4 && b[i][j].getID() <= 6){
+                        if (new Rectangle2D.Float(x -2 + (int)GameState.xOffset, y + 2+ (int)GameState.yOffset,
+                        width, height).intersects(b[i][j])){
+                            moveSpeed = waterSpeed;
+                        }
+                    }
             }
         }
         x = (int)hx;
@@ -338,7 +340,7 @@ public class Player
             }
 
         }
-        //g.fillRect(x, y, width, height);
+        
     }
 
     public void keyPressed(int k){
