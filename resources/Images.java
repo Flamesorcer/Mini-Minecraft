@@ -24,6 +24,10 @@ public class Images
             blocks[2] = ImageIO.read(getClass().getResourceAsStream("/images/stone.png"));
             blocks[3] = ImageIO.read(getClass().getResourceAsStream("/images/water.png"));
             blocks[4] = ImageIO.read(getClass().getResourceAsStream("/images/water_top.png"));
+            blocks[5] = ImageIO.read(getClass().getResourceAsStream("/images/lava_top.png"));
+            blocks[6] = ImageIO.read(getClass().getResourceAsStream("/images/lava.png"));
+            blocks[7] = ImageIO.read(getClass().getResourceAsStream("/images/wood.png"));
+            blocks[8] = ImageIO.read(getClass().getResourceAsStream("/images/water_top.png"));
             
         }
         catch(IOException e){
