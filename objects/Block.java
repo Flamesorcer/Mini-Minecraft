@@ -55,5 +55,16 @@ public class Block extends Rectangle
     public int getID(){
         return id;
     }
-    
+    public int getx(){
+        return (int)x - (int)GameState.xOffset;
+    }
+    public int gety(){
+        return (int)y - (int)GameState.yOffset;
+    }
+    public int getwidth(){
+        return (int)width;
+    }
+    public int getheight(){
+        return (int)height;
+    }
 }
