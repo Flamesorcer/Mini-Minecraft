@@ -17,7 +17,7 @@ public class Images
     private static BufferedImage[] blocks;
     
     public Images() {
-        blocks = new BufferedImage[5];
+        blocks = new BufferedImage[10];
         try{
             blocks[0] = ImageIO.read(getClass().getResourceAsStream("/images/grass.jpg"));
             blocks[1] = ImageIO.read(getClass().getResourceAsStream("/images/dirt.jpg"));
@@ -28,7 +28,7 @@ public class Images
             blocks[6] = ImageIO.read(getClass().getResourceAsStream("/images/lava.png"));
             blocks[7] = ImageIO.read(getClass().getResourceAsStream("/images/wood.png"));
             blocks[8] = ImageIO.read(getClass().getResourceAsStream("/images/water_top.png"));
-            
+            blocks[9] = ImageIO.read(getClass().getResourceAsStream("/images/crafting_table.png"));
         }
         catch(IOException e){
             e.printStackTrace();
