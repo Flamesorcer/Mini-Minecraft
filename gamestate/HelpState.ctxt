@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=HelpState
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ HelpState\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=gsm
+comment1.target=HelpState(GameStateManager)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ HelpState\r\n
+comment2.params=
+comment2.target=void\ init()
+comment3.params=
+comment3.target=void\ tick()
+comment4.params=g
+comment4.target=void\ draw(java.awt.Graphics)
+comment5.params=k
+comment5.target=void\ keyPressed(int)
+comment6.params=k
+comment6.target=void\ keyReleased(int)
+numComments=7
