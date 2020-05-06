@@ -132,7 +132,7 @@ public class Player
                     }
                     
                 }
-                else if (b[i][j].getID() >= 4 && b[i][j].getID() <= 6){
+                else if (b[i][j].getID() >= 4 && b[i][j].getID() <= 7){
                         if (new Rectangle2D.Float(x -2 + (int)GameState.xOffset, y + 2+ (int)GameState.yOffset,
                         width, height).intersects(b[i][j])){
                             inWater = true;
