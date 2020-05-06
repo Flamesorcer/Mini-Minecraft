@@ -35,15 +35,16 @@ public class Block extends Rectangle
     }
     public void draw(Graphics g){
         g.setColor(Color.BLACK);
-        if(id >=1 && id <= 4){
-            //g.fillRect(x - (int)GameState.xOffset, y - (int)GameState.yOffset, width, height);
-            g.drawImage(Images.getBlocks()[id - 1], x - (int)GameState.xOffset, y - (int)GameState.yOffset, width, height, null);
-        }   
         if(id >=5 && id <= 6){
             //g.fillRect(x - (int)GameState.xOffset, y - (int)GameState.yOffset, width, height)
             g.drawImage(Images.getBlocks()[id - 1], x - (int)GameState.xOffset, y - (int)GameState.yOffset, width, height, null);
             
         }  
+        else if(id >0){
+            //g.fillRect(x - (int)GameState.xOffset, y - (int)GameState.yOffset, width, height);
+            g.drawImage(Images.getBlocks()[id - 1], x - (int)GameState.xOffset, y - (int)GameState.yOffset, width, height, null);
+        }   
+        
     }
     public static int blockSize(){
         return blockSize;
