@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import resources.Images;
 public class MenuState extends GameState
 {
     
@@ -54,7 +55,7 @@ public class MenuState extends GameState
                 gsm.states.push(new Level1State(gsm));
             }
             else if (currentSelection == 1){
-                //help
+                gsm.states.push(new HelpState(gsm));
             }
             else if (currentSelection == 2){
                 System.exit(0);
