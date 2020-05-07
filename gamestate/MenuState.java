@@ -71,4 +71,7 @@ public class MenuState extends GameState
     public void nextLevel(){
         
     }
+    public void repeatLevel(Graphics g){
+        
+    }
 }
