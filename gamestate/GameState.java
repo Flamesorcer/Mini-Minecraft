@@ -18,6 +18,7 @@ public abstract class GameState
     public abstract void keyPressed(int k);
     public abstract void keyReleased(int k);
     public abstract void nextLevel();
+    public abstract void repeatLevel(Graphics g);
     
     
     
