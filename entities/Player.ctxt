@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Player
-comment1.params=w\ h
-comment1.target=Player(int,\ int)
+comment1.params=w\ h\ gs
+comment1.target=Player(int,\ int,\ gamestate.GameState)
 comment2.params=b
 comment2.target=void\ tick(objects.Block[][])
 comment3.params=g
@@ -10,4 +10,6 @@ comment4.params=k
 comment4.target=void\ keyPressed(int)
 comment5.params=k
 comment5.target=void\ keyReleased(int)
-numComments=6
+comment6.params=
+comment6.target=int\ getHealth()
+numComments=7
