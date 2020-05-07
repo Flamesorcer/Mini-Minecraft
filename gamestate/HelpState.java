@@ -15,7 +15,7 @@ public class HelpState extends GameState
 {
     // instance variables - replace the example below with your own
     private String[] options = {"Controls:", "A - Move left", "D - Move right", "Shift - Sprint", 
-        "Space - Jump and swim", "", "Objective: Get to the crafting table", 
+        "Space - Jump and swim", "Esc - To go to Menu","", "Objective: Get to the crafting table", 
         "", "", "", "", "Press Enter to return to menu"};
 
     /**
@@ -44,7 +44,7 @@ public class HelpState extends GameState
             g.setFont(new Font("Ariel", Font.PLAIN, 32));
             g.drawString(options[i], GamePanel.WIDTH / 3 - 75, 100 + i * 30);
         }
-        g.drawImage(Images.getBlocks()[9], 230, 300, 100, 100, null);
+        g.drawImage(Images.getBlocks()[9], 230, 330, 100, 100, null);
     }
     public  void keyPressed(int k){
         if(k == KeyEvent.VK_ENTER){
@@ -55,6 +55,9 @@ public class HelpState extends GameState
         
     }
     public void nextLevel(){
+        
+    }
+    public void repeatLevel(Graphics g){
         
     }
 }
