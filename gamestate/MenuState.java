@@ -8,7 +8,7 @@ import resources.Images;
 public class MenuState extends GameState
 {
     
-    private String[] options = {"Start", "Help", "Quit"};
+    private String[] options = {"Start", "Help", "Levels", "Quit"};
     private int currentSelection = 0;
     public MenuState(GameStateManager gsm){
         super(gsm);
@@ -58,11 +58,17 @@ public class MenuState extends GameState
                 gsm.states.push(new HelpState(gsm));
             }
             else if (currentSelection == 2){
+                gsm.states.push(new LevelSelect(gsm));
+            }
+            else if (currentSelection == 3){
                 System.exit(0);
             }
         }
     }
     public void keyReleased(int k){
+        
+    }
+    public void nextLevel(){
         
     }
 }
