@@ -65,6 +65,7 @@ public class Player
     private boolean inLava;
     private int lavaDamage = 0;
     private GameState gs;
+    private boolean whyyyyyyy = false;
     public Player(int w, int h, GameState gs){
         hx = GamePanel.WIDTH/2;
         hy = GamePanel.HEIGHT/2;
@@ -183,6 +184,7 @@ public class Player
         else{
             lavaDamage = 0;
         }
+        
         //Right Movement
         if(right && rightCollision) {
             if (running) hx += 2* moveSpeed;
@@ -268,6 +270,9 @@ public class Player
         Color lpant = new Color(51, 42, 121);
         Color dpant = new Color(37, 30, 90);
         Color shoe = new Color(78, 78, 78);
+        if(health <= 0){
+            gs.repeatLevel(g);
+        }
         //Drawing the Bottom
         if (walkingStatus == 0){
             g.setColor(lpant);
