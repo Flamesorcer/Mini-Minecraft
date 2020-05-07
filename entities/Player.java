@@ -12,6 +12,8 @@ import physics.Collision;
 import gamestate.GameState;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import resources.Images;
+import gamestate.GameState;
 public class Player
 {
     //Bounds
@@ -54,14 +56,16 @@ public class Player
     private double attackCount;
     private double attackTime;
     //Health
-    private double health;
+    private int health;
     //Water
     private boolean inWater;
     private double waterJump = jumpSpeed * .7;
     private double waterSpeed = maxMoveSpeed * .5;
     private double waterFall = maxMaxFallSpeed * .25;
-    
-    public Player(int w, int h){
+    private boolean inLava;
+    private int lavaDamage = 0;
+    private GameState gs;
+    public Player(int w, int h, GameState gs){
         hx = GamePanel.WIDTH/2;
         hy = GamePanel.HEIGHT/2;
         width = w;
@@ -84,6 +88,8 @@ public class Player
         fallAccelleration = .2;
         running = false;
         inWater = false;
+        health = 20;
+        this.gs = gs;
     }
 
     public void tick(Block[][] b){
@@ -91,10 +97,11 @@ public class Player
         x = (int)hx;
         y = (int)hy;
         inWater = false;
+        inLava = false;
         //Collisions
         for(int i = 0; i < b.length; i++){
             for(int j = 0; j < b[0].length; j++){
-                if(b[i][j].getID() >= 1 && b[i][j].getID() <= 3){
+                if(b[i][j].getID() >= 1 && !(b[i][j].getID() >= 4 && b[i][j].getID() <= 7) && b[i][j].getID() != 10){
                     //right Collision
                     if(new Line2D.Float(x + 2 + width + (int)GameState.xOffset, y + 2+ (int)GameState.yOffset, 
                     x + 2 + width + (int)GameState.xOffset, y -1 +  height + (int)GameState.yOffset).intersects(b[i][j])){
@@ -136,8 +143,17 @@ public class Player
                         if (new Rectangle2D.Float(x -2 + (int)GameState.xOffset, y + 2+ (int)GameState.yOffset,
                         width, height).intersects(b[i][j])){
                             inWater = true;
+                            if(b[i][j].getID() == 6 || b[i][j].getID() == 7){
+                                inLava = true;
+                            }
                         }
                     }
+                else if(b[i][j].getID() == 10){
+                    if (new Rectangle2D.Float(x -2 + (int)GameState.xOffset, y + 2+ (int)GameState.yOffset,
+                        width, height).intersects(b[i][j])){
+                            gs.nextLevel();
+                        }
+                }
             }
         }
         if(inWater){
@@ -155,7 +171,18 @@ public class Player
         }
         x = (int)hx;
         y = (int)hy;
-
+        if(inLava){
+            if(lavaDamage == 0){
+                lavaDamage = 10;
+                health --;
+            }
+            else{
+                lavaDamage--;
+            }
+        }
+        else{
+            lavaDamage = 0;
+        }
         //Right Movement
         if(right && rightCollision) {
             if (running) hx += 2* moveSpeed;
@@ -361,6 +388,7 @@ public class Player
             }
 
         }
+        int unHealth = health;
         
     }
 
@@ -374,12 +402,15 @@ public class Player
             falling = false;
         }
         if (k == KeyEvent.VK_SHIFT) running = true;
-        if (k == KeyEvent.VK_S) isAttacking = true;
+        //if (k == KeyEvent.VK_S) isAttacking = true;
     }
 
     public void keyReleased(int k){
         if (k == KeyEvent.VK_D) right = false;
         if (k == KeyEvent.VK_A) left = false;
         if (k == KeyEvent.VK_SHIFT) running = false;
+    }
+    public int getHealth(){
+        return health;
     }
 }
