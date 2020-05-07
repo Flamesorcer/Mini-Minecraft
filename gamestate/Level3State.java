@@ -22,6 +22,8 @@ public class Level3State extends GameState
     private Player player;
     private ArrayList<Block> b;
     private Map map;
+    private boolean why = false;
+    private boolean whyy = false;
     public Level3State(GameStateManager gsm){
         super(gsm);
         
@@ -61,14 +63,41 @@ public class Level3State extends GameState
         g.setColor(Color.BLACK);
         g.setFont(new Font("Ariel", Font.PLAIN, 20));
         g.drawString("Level 3", GamePanel.WIDTH - 75, 30);
+        if (why){
+            
+            Color death = new Color(194, 81, 85, 150);
+            g.setColor(death);
+            g.fillRect(0,0, GamePanel.WIDTH, GamePanel.HEIGHT);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Ariel", Font.PLAIN, 72));
+            g.drawString("You died!", GamePanel.WIDTH / 2 - 140, 300);
+            g.setFont(new Font("Ariel", Font.PLAIN, 32));
+            g.drawString("Respawning", GamePanel.WIDTH / 2 - 60, 370);
+            if(whyy){
+                try {
+                
+                    Thread.sleep(3 * 1000);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                }
+                gsm.states.push(new Level3State(gsm));
+            }
+            else{
+                whyy = true;
+            }
+        }
     }
     public void nextLevel(){
         gsm.states.push(new Level4State(gsm));
     }
     public  void keyPressed(int k){
+        if (k == KeyEvent.VK_ESCAPE) gsm.states.push(new MenuState(gsm));
         player.keyPressed(k);
     }
     public  void keyReleased(int k){
         player.keyReleased(k);
+    }
+    public void repeatLevel(Graphics g){
+        why = true;
     }
 }
