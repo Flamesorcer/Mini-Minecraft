@@ -84,4 +84,7 @@ public class LevelSelect extends GameState
     public void nextLevel(){
         
     }
+    public void repeatLevel(Graphics g){
+        
+    }
 }
