@@ -15,9 +15,10 @@ import java.io.InputStream;
 public class Images
 {
     private static BufferedImage[] blocks;
-    
+    private static BufferedImage[] hearts;
     public Images() {
         blocks = new BufferedImage[10];
+        hearts = new BufferedImage[3];
         try{
             blocks[0] = ImageIO.read(getClass().getResourceAsStream("/images/grass.jpg"));
             blocks[1] = ImageIO.read(getClass().getResourceAsStream("/images/dirt.jpg"));
@@ -33,8 +34,19 @@ public class Images
         catch(IOException e){
             e.printStackTrace();
         }
+        try{
+            hearts[0] = ImageIO.read(getClass().getResourceAsStream("/images/heart.png"));
+            hearts[1] = ImageIO.read(getClass().getResourceAsStream("/images/heart_half.png"));
+            hearts[2] = ImageIO.read(getClass().getResourceAsStream("/images/heart_empty.png"));
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
     }
     public static BufferedImage[] getBlocks(){
         return blocks;
+    }
+    public static BufferedImage[] getHearts(){
+        return hearts;
     }
 }
