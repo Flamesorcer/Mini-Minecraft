@@ -1,13 +1,11 @@
 package objects;
 
-import java.awt.Graphics2D;
+
 import java.awt.Rectangle;
 import java.awt.Graphics;
 import gamestate.GameState;
-import gamestate.Level1State;
 import java.awt.Color;
 import resources.Images;
-import java.awt.AlphaComposite;
 /**
  * Write a description of class Block here.
  *
