@@ -51,12 +51,13 @@ public class Player
     private int health;
     //Water
     private boolean inWater;
-    private double waterJump = jumpSpeed * .7;
+    private double waterJump = jumpSpeed * .5;
     private double waterSpeed = maxMoveSpeed * .5;
     private double waterFall = maxMaxFallSpeed * .25;
     private boolean inLava;
     private int lavaDamage = 0;
     private GameState gs;
+    private boolean wantJump;
     public Player(int w, int h, GameState gs){
         hx = GamePanel.WIDTH/2;
         hy = GamePanel.HEIGHT/2;
@@ -111,9 +112,9 @@ public class Player
                         falling = true;
                     }
                     //Bottom Collision
-                    if(Collision.playerBlock(new Point(x + 3 + (int)GameState.xOffset, y +1 + height + 
+                    if(Collision.playerBlock(new Point(x + 3 + (int)GameState.xOffset, y + height + 
                             (int)GameState.yOffset), b[i][j]) || Collision.playerBlock(new Point(x + width/2 + (int)GameState.xOffset, y + 1+ height + (int)GameState.yOffset), b[i][j]) ||
-                    Collision.playerBlock(new Point(x -3 + width + (int)GameState.xOffset, y + height + 1 + (int)GameState.yOffset), b[i][j])){
+                    Collision.playerBlock(new Point(x -4 + width + (int)GameState.xOffset, y + height + (int)GameState.yOffset), b[i][j])){
                         hy = b[i][j].getY() - height - GameState.yOffset;
                         y = (int)hy;
                         falling = false;
@@ -208,6 +209,13 @@ public class Player
         if(!falling){
             currentFallSpeed = fallAccelleration;
         }
+        if ((wantJump && !jumping && !falling)) jumping = true;
+        else if(wantJump && inWater) {
+            currentJumpSpeed = jumpSpeed;
+            jumping = true;
+            falling = false;
+        }
+        
         //For Animations
         if ((right && left)){
             isWalking = false;
@@ -387,12 +395,7 @@ public class Player
     public void keyPressed(int k){
         if (k == KeyEvent.VK_D) right = true;
         if (k == KeyEvent.VK_A) left = true;
-        if ((k == KeyEvent.VK_SPACE && !jumping && !falling)) jumping = true;
-        else if( k == KeyEvent.VK_SPACE && inWater) {
-            currentJumpSpeed = jumpSpeed;
-            jumping = true;
-            falling = false;
-        }
+        if ((k == KeyEvent.VK_SPACE)) wantJump = true;
         if (k == KeyEvent.VK_SHIFT) running = true;
         //if (k == KeyEvent.VK_S) isAttacking = true;
     }
@@ -401,6 +404,7 @@ public class Player
         if (k == KeyEvent.VK_D) right = false;
         if (k == KeyEvent.VK_A) left = false;
         if (k == KeyEvent.VK_SHIFT) running = false;
+        if (k == KeyEvent.VK_SPACE) wantJump = false;
     }
     public int getHealth(){
         return health;

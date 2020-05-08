@@ -31,7 +31,7 @@ public class Level3State extends GameState
     public void init(){
         player = new Player(30, 150, this);
         xOffset = -200;
-        yOffset = -200;
+        yOffset = 200;
         map = new Map("/Maps/map3.map");
         
         
