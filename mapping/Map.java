@@ -7,8 +7,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.NumberFormatException;
 import java.io.IOException;
-import java.lang.ClassLoader;
-import java.lang.Class;
 
 /**
  * Write a description of class Map here.
@@ -59,6 +57,7 @@ public class Map
                 }
 
             }
+            br.close();
 
         }
         catch (NumberFormatException | IOException e) {
