@@ -1,19 +1,14 @@
 package entities;
 import main.GamePanel;
-import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.awt.Point;
 import objects.Block;
 import physics.Collision;
 import gamestate.GameState;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-import resources.Images;
-import gamestate.GameState;
 public class Player
 {
     //Bounds
@@ -39,7 +34,7 @@ public class Player
     //Falling or Jumping
     private boolean jumping;
     private boolean falling;
-    private boolean topCollision, rightCollision, leftCollision;
+    private boolean rightCollision, leftCollision;
     private boolean onGround;
     private boolean running;
     //Jump Speed
@@ -52,9 +47,6 @@ public class Player
     private double currentFallSpeed = 0.12;
 
     private double fallAccelleration;
-    private boolean help;
-    private double attackCount;
-    private double attackTime;
     //Health
     private int health;
     //Water
@@ -65,7 +57,6 @@ public class Player
     private boolean inLava;
     private int lavaDamage = 0;
     private GameState gs;
-    private boolean whyyyyyyy = false;
     public Player(int w, int h, GameState gs){
         hx = GamePanel.WIDTH/2;
         hy = GamePanel.HEIGHT/2;
@@ -81,8 +72,6 @@ public class Player
         moveSpeed = maxMoveSpeed;
         jumping = false;
         falling = false;
-        help = false;
-        topCollision = false;
         onGround = false;
         leftCollision = true;
         rightCollision = true;
@@ -146,6 +135,7 @@ public class Player
                             inWater = true;
                             if(b[i][j].getID() == 6 || b[i][j].getID() == 7){
                                 inLava = true;
+                                
                             }
                         }
                     }
@@ -263,10 +253,10 @@ public class Player
         Color hair = new Color(41, 29, 13);
         Color eye = new Color(60, 45, 100);
         Color sleve = new Color(0, 101, 101);
-        Color shirt = new Color(0, 128, 128);
-        Color handle = new Color(0, 101, 101);
-        Color guard = new Color(30, 138, 119);
-        Color blade = new Color(43, 200, 173);
+        // Color shirt = new Color(0, 128, 128);
+        // Color handle = new Color(0, 101, 101);
+        // Color guard = new Color(30, 138, 119);
+        // Color blade = new Color(43, 200, 173);
         Color lpant = new Color(51, 42, 121);
         Color dpant = new Color(37, 30, 90);
         Color shoe = new Color(78, 78, 78);
@@ -391,10 +381,7 @@ public class Player
                 g.setColor(skin);
                 g.fillRect(x+wp, y+9*hp, 3*wp, 6*hp);
             }
-
         }
-        int unHealth = health;
-        
     }
 
     public void keyPressed(int k){
