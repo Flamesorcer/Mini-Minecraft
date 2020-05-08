@@ -3,15 +3,7 @@ package resources;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.InputStream;
-/**
- * Write a description of class Images here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+
 public class Images
 {
     private static BufferedImage[] blocks;
