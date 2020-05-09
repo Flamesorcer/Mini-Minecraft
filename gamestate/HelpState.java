@@ -47,6 +47,7 @@ public class HelpState extends GameState
         g.drawImage(Images.getBlocks()[9], 230, 330, 100, 100, null);
     }
     public  void keyPressed(int k){
+        if (k == KeyEvent.VK_ESCAPE) gsm.states.push(new MenuState(gsm));
         if(k == KeyEvent.VK_ENTER){
             gsm.states.pop();
         }

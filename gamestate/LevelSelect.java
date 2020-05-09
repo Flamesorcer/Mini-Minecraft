@@ -45,6 +45,7 @@ public class LevelSelect extends GameState
         
     }
     public void keyPressed(int k){
+        if (k == KeyEvent.VK_ESCAPE) gsm.states.push(new MenuState(gsm));
         if(k == KeyEvent.VK_S){
             currentSelection++;
             if(currentSelection >= options.length){
@@ -58,6 +59,7 @@ public class LevelSelect extends GameState
             }
         }
         if (k == KeyEvent.VK_ENTER){
+            if (k == KeyEvent.VK_ESCAPE) gsm.states.push(new MenuState(gsm));
             if (currentSelection == 0){
                 gsm.states.push(new Level1State(gsm));
             }
