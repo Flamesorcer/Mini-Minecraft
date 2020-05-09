@@ -26,7 +26,7 @@ public class Level5State extends GameState
     public void init(){
         player = new Player(30, 150, this);
         xOffset = -200;
-        yOffset = -200;
+        yOffset = 300;
         map = new Map("/Maps/map5.map");
         
         
@@ -83,7 +83,7 @@ public class Level5State extends GameState
         }
     }
     public void nextLevel(){
-        gsm.states.push(new Level2State(gsm));
+        gsm.states.push(new Level1State(gsm));
     }
     public  void keyPressed(int k){
         if (k == KeyEvent.VK_ESCAPE) gsm.states.push(new MenuState(gsm));
