@@ -8,9 +8,11 @@ public class Images
 {
     private static BufferedImage[] blocks;
     private static BufferedImage[] hearts;
+    private static BufferedImage[] menu;
     public Images() {
         blocks = new BufferedImage[12];
         hearts = new BufferedImage[3];
+        menu = new BufferedImage[9];
         try{
             blocks[0] = ImageIO.read(getClass().getResourceAsStream("/images/grass.jpg"));
             blocks[1] = ImageIO.read(getClass().getResourceAsStream("/images/dirt.jpg"));
@@ -36,11 +38,31 @@ public class Images
         catch(IOException e){
             e.printStackTrace();
         }
+        try{
+            menu[0] = ImageIO.read(getClass().getResourceAsStream("/images/background.png"));
+            menu[1] = ImageIO.read(getClass().getResourceAsStream("/images/start_notSelected.png"));
+            menu[2] = ImageIO.read(getClass().getResourceAsStream("/images/help_notSelected.png"));
+            menu[3] = ImageIO.read(getClass().getResourceAsStream("/images/levels_notSelected.png"));
+            menu[4] = ImageIO.read(getClass().getResourceAsStream("/images/quit_notSelected.png"));
+            menu[5] = ImageIO.read(getClass().getResourceAsStream("/images/start_Selected.png"));
+            menu[6] = ImageIO.read(getClass().getResourceAsStream("/images/help_Selected.png"));
+            menu[7] = ImageIO.read(getClass().getResourceAsStream("/images/levels_Selected.png"));
+            menu[8] = ImageIO.read(getClass().getResourceAsStream("/images/quit_Selected.png"));
+
+
+
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
     }
     public static BufferedImage[] getBlocks(){
         return blocks;
     }
     public static BufferedImage[] getHearts(){
         return hearts;
+    }
+    public static BufferedImage[] getMenu(){
+        return menu;
     }
 }
