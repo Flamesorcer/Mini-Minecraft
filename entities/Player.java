@@ -38,7 +38,7 @@ public class Player
     private boolean onGround;
     private boolean running;
     //Jump Speed
-    private double maxJumpSpeed = 6;
+    private double maxJumpSpeed = 6.69;
     private double jumpSpeed = maxJumpSpeed;
     private double currentJumpSpeed = jumpSpeed;
     //Fall Speed
@@ -58,6 +58,13 @@ public class Player
     private int lavaDamage = 0;
     private GameState gs;
     private boolean wantJump;
+    private double momentum;
+    private double maxAccelleration = 1.26;
+    private double accelleration = maxAccelleration;
+    private double waterAccelleration = maxAccelleration *.4;
+    private double airAccelleration = maxAccelleration * .2;
+    private double maxFriction = .3;
+    private double friction = maxFriction;
     public Player(int w, int h, GameState gs){
         hx = GamePanel.WIDTH/2;
         hy = GamePanel.HEIGHT/2;
@@ -76,7 +83,7 @@ public class Player
         onGround = false;
         leftCollision = true;
         rightCollision = true;
-        fallAccelleration = .2;
+        fallAccelleration = .245;
         running = false;
         inWater = false;
         health = 20;
@@ -93,24 +100,6 @@ public class Player
         for(int i = 0; i < b.length; i++){
             for(int j = 0; j < b[0].length; j++){
                 if(b[i][j].getID() >= 1 && !(b[i][j].getID() >= 4 && b[i][j].getID() <= 7) && b[i][j].getID() != 10){
-                    //right Collision
-                    if(new Line2D.Float(x + 2 + width + (int)GameState.xOffset, y + 5 + (int)GameState.yOffset, 
-                    x + 2 + width + (int)GameState.xOffset, y -1 +  height + (int)GameState.yOffset).intersects(b[i][j])){
-                        rightCollision = false;
-
-                    }
-                    //Left Collision
-                    if(new Line2D.Float(x -2 + (int)GameState.xOffset, y + 5 + (int)GameState.yOffset, 
-                    x -2 + (int)GameState.xOffset, y -1 +  height + (int)GameState.yOffset).intersects(b[i][j])){
-                        leftCollision = false;
-                    }
-                    //Top Collision
-                    if(Collision.playerBlock(new Point(x +1 + (int)GameState.xOffset, y -2 + 
-                            (int)GameState.yOffset), b[i][j]) || Collision.playerBlock(new Point(x + width/2 + (int)GameState.xOffset, y -2 + (int)GameState.yOffset), b[i][j]) ||
-                    Collision.playerBlock(new Point(x -1 + width + (int)GameState.xOffset, y -2 + (int)GameState.yOffset), b[i][j])){
-                        jumping = false;
-                        falling = true;
-                    }
                     //Bottom Collision
                     if(Collision.playerBlock(new Point(x + 3 + (int)GameState.xOffset, y + height + 
                             (int)GameState.yOffset), b[i][j]) || Collision.playerBlock(new Point(x + width/2 + (int)GameState.xOffset, y + 1+ height + (int)GameState.yOffset), b[i][j]) ||
@@ -128,6 +117,25 @@ public class Player
                     else if(!onGround && !jumping){
                         falling = true;
                     }
+                    //right Collision
+                    if(new Line2D.Float(x + 2 + width + (int)GameState.xOffset, y + 5 + (int)GameState.yOffset, 
+                    x + 2 + width + (int)GameState.xOffset, y -2 +  height + (int)GameState.yOffset).intersects(b[i][j])){
+                        rightCollision = false;
+
+                    }
+                    //Left Collision
+                    if(new Line2D.Float(x -2 + (int)GameState.xOffset, y + 5 + (int)GameState.yOffset, 
+                    x -2 + (int)GameState.xOffset, y -2 +  height + (int)GameState.yOffset).intersects(b[i][j])){
+                        leftCollision = false;
+                    }
+                    //Top Collision
+                    if(Collision.playerBlock(new Point(x +1 + (int)GameState.xOffset, y -2 + 
+                            (int)GameState.yOffset), b[i][j]) || Collision.playerBlock(new Point(x + width/2 + (int)GameState.xOffset, y -2 + (int)GameState.yOffset), b[i][j]) ||
+                    Collision.playerBlock(new Point(x -1 + width + (int)GameState.xOffset, y -2 + (int)GameState.yOffset), b[i][j])){
+                        jumping = false;
+                        falling = true;
+                    }
+                    
                     
                 }
                 else if (b[i][j].getID() >= 4 && b[i][j].getID() <= 7){
@@ -152,6 +160,7 @@ public class Player
             moveSpeed = waterSpeed;
             jumpSpeed = waterJump;
             maxFallSpeed = waterFall;
+            
             if(currentFallSpeed > maxFallSpeed){
                 currentFallSpeed = maxFallSpeed;
             }
@@ -160,6 +169,7 @@ public class Player
             moveSpeed = maxMoveSpeed;
             jumpSpeed = maxJumpSpeed;
             maxFallSpeed = maxMaxFallSpeed;
+            
         }
         x = (int)hx;
         y = (int)hy;
@@ -176,20 +186,62 @@ public class Player
             lavaDamage = 0;
         }
         
+        // //Right Movement
+        // if(right && rightCollision) {
+        //     if (running) hx += 2* moveSpeed;
+        //     else hx += 1.5 * moveSpeed;
+        //     //GameState.xOffset += moveSpeed;
+        // }
+        // //Left Movement
+        // if(left && leftCollision) {
+        //     if (running) hx -= 2* moveSpeed;
+        //     else hx -= 1.5 * moveSpeed;
+        //     //GameState.xOffset -= moveSpeed;
+        // }
+
+
+
+        if(inWater){
+            //In Water
+            accelleration = waterAccelleration;
+            friction = maxFriction * .9;
+
+        }
+        else if(onGround){
+            //On Ground
+            accelleration = maxAccelleration;
+            friction = maxFriction;
+        }
+        else{
+            //In Air
+            accelleration = airAccelleration;
+            friction = maxFriction * .24;
+        }
+        if(!rightCollision && momentum > 0){
+            momentum = 0;
+        }
+        if(!leftCollision && momentum < 0){
+            momentum = 0;
+        }
         //Right Movement
         if(right && rightCollision) {
-            if (running) hx += 2* moveSpeed;
-            else hx += 1.5 * moveSpeed;
+            if (running) momentum += 2* accelleration;
+            else momentum += 1.5 * accelleration;
             //GameState.xOffset += moveSpeed;
         }
         //Left Movement
         if(left && leftCollision) {
-            if (running) hx -= 2* moveSpeed;
-            else hx -= 1.5 * moveSpeed;
+            if (running) momentum -= 2* accelleration;
+            else momentum -= 1.5 * accelleration;
             //GameState.xOffset -= moveSpeed;
         }
+        momentum = momentum - momentum*friction;
+        hx += momentum;
+
         leftCollision = true;
         rightCollision = true;
+
+
         //Jumping and Falling
         if(jumping){
             hy -= currentJumpSpeed;
